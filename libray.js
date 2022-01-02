@@ -8,6 +8,20 @@ const mainTable = document.querySelector('#table')
 function getInfo(objEvent) {
     objEvent.preventDefault()
 
+    // Getting the values
+    let title = document.querySelector('#title').value;
+    console.log(title);
+    let author = document.querySelector('#author').value;
+    console.log(author);
+    let pages = document.querySelector('#pages').value;
+    console.log(pages);
+
+    // Creating book object and adding it to the array 
+    addBookToLibrary(newBook(title,author,pages));
+
+    clearTable();
+
+
     // creating table
     let table = document.createElement('table');
     let headerRow = document.createElement('tr');
@@ -24,20 +38,23 @@ function getInfo(objEvent) {
     // <table> <tr> <th> textNode </th> </tr> </table>
     table.appendChild(headerRow);
 
+    // creating table data
+    myLibray.forEach((book) => {
+        let row = document.createElement('tr');
+        Object.values(book).forEach(text => {
+            let cell = document.createElement('td');
+            let textNode = document.createTextNode(text);
+    
+            cell.appendChild(textNode);
+            // <tr> <td> text node </td> <tr>
+            row.appendChild(cell);
+        })
+        table.appendChild(row)
+    })
+
+
     // <div> <table>
     mainTable.appendChild(table)
-
-
-    // Getting the values
-    let title = document.querySelector('#title').value;
-    console.log(title);
-    let author = document.querySelector('#author').value;
-    console.log(author);
-    let pages = document.querySelector('#pages').value;
-    console.log(pages);
-
-
-    addBookToLibrary(newBook(title,author,pages));
 
     console.table(myLibray);
 
@@ -73,6 +90,10 @@ function librayInventory(libray) {
             console.log(`${property}: ${book[property]}`);
         }
     })
+}
+
+function clearTable() {
+    table.innerHTML = ""
 }
 
 
