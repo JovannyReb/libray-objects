@@ -22,7 +22,7 @@ function getInfo(objEvent) {
     clearTable();
 
 
-    // creating table
+    // creating table heading
     let table = document.createElement('table');
     let headerRow = document.createElement('tr');
 
@@ -39,8 +39,11 @@ function getInfo(objEvent) {
     table.appendChild(headerRow);
 
     // creating table data
-    myLibray.forEach((book) => {
+    myLibray.forEach((book, index) => {
         let row = document.createElement('tr');
+        row.dataset.id = `${index}`
+        let button = document.createElement('button')
+        button.textContent = 'delete'
         Object.values(book).forEach(text => {
             let cell = document.createElement('td');
             let textNode = document.createTextNode(text);
@@ -49,6 +52,7 @@ function getInfo(objEvent) {
             // <tr> <td> text node </td> <tr>
             row.appendChild(cell);
         })
+        row.appendChild(button)
         table.appendChild(row)
     })
 
