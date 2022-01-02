@@ -1,5 +1,22 @@
 let myLibray = [];
 
+const form = document.querySelector('#form');
+
+function getInfo(objEvent) {
+    objEvent.preventDefault()
+
+    // Getting the values
+    let title = document.querySelector('#title').value
+    console.log(title)
+    let author = document.querySelector('#author').value
+    console.log(author)
+    let pages = document.querySelector('#pages').value
+    console.log(pages)
+
+}
+
+form.addEventListener('submit', getInfo)
+
 function Book(title,author,pages) {
     this.title = title;
     this.author = author;
