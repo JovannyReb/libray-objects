@@ -35,6 +35,7 @@ function getInfo(objEvent) {
 
 form.addEventListener('submit', getInfo)
 
+
 function tableHeading() {
         // creating table heading
         let headerRow = document.createElement('tr');
@@ -62,7 +63,7 @@ function tableData() {
             // added a delete button to be generated
             let button = document.createElement('button')
             button.textContent = 'delete'
-            button.addEventListener('click', test)
+            button.addEventListener('click', deleteRow)
     
             // looping through each book values, creating a td and adding each value to each row
             Object.values(book).forEach(text => {
@@ -79,9 +80,13 @@ function tableData() {
 }
 
 
-function test() {
+function deleteRow() {
     console.log(this.parentElement.dataset.id)
-    let index = this.parentElement.dataset.id
+    let index = this.parentElement.dataset.id;
+    myLibray.splice(index, 1);
+    clearTable();
+    tableHeading();
+    tableData();
 }
 
 function Book(title,author,pages) {
