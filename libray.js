@@ -4,6 +4,7 @@ let headers = ['title', 'author', 'pages']
 
 const form = document.querySelector('#form');
 const mainTable = document.querySelector('#table')
+let table = document.createElement('table');
 
 function getInfo(objEvent) {
     objEvent.preventDefault()
@@ -21,52 +22,67 @@ function getInfo(objEvent) {
 
     clearTable();
 
+    tableHeading();
+    tableData();
 
-    // creating table heading
-    let table = document.createElement('table');
-    let headerRow = document.createElement('tr');
-
-    headers.forEach((headerText) => {
-        let header = document.createElement('th');
-        let textNode = document.createTextNode(headerText);
-
-        header.appendChild(textNode);
-        // <tr> <th> text node </th> <tr>
-        headerRow.appendChild(header);
-    });
-
-    // <table> <tr> <th> textNode </th> </tr> </table>
-    table.appendChild(headerRow);
-
-    // creating table data
-    myLibray.forEach((book, index) => {
-        let row = document.createElement('tr');
-        row.dataset.id = `${index}`
-        let button = document.createElement('button')
-        button.textContent = 'delete'
-        Object.values(book).forEach(text => {
-            let cell = document.createElement('td');
-            let textNode = document.createTextNode(text);
-    
-            cell.appendChild(textNode);
-            // <tr> <td> text node </td> <tr>
-            row.appendChild(cell);
-        })
-        row.appendChild(button)
-        table.appendChild(row)
-    })
-
-
-    // <div> <table>
+    // <div> <table> </table> </div>
     mainTable.appendChild(table)
 
     console.table(myLibray);
 
     clearValues();
-
 }
 
 form.addEventListener('submit', getInfo)
+
+function tableHeading() {
+        // creating table heading
+        let headerRow = document.createElement('tr');
+    
+        headers.forEach((headerText) => {
+            let header = document.createElement('th');
+            let textNode = document.createTextNode(headerText);
+    
+            header.appendChild(textNode);
+            // <tr> <th> text node </th> <tr>
+            headerRow.appendChild(header);
+        });
+    
+        // <table> <tr> <th> textNode </th> </tr> </table>
+        table.appendChild(headerRow);
+}
+
+function tableData() {
+        // creating table data
+        myLibray.forEach((book, index) => {
+            let row = document.createElement('tr');
+            // added a data-set id to keep track of every row created
+            row.dataset.id = `${index}`
+    
+            // added a delete button to be generated
+            let button = document.createElement('button')
+            button.textContent = 'delete'
+            button.addEventListener('click', test)
+    
+            // looping through each book values, creating a td and adding each value to each row
+            Object.values(book).forEach(text => {
+                let cell = document.createElement('td');
+                let textNode = document.createTextNode(text);
+        
+                cell.appendChild(textNode);
+                // <tr> <td> text node </td> <tr>
+                row.appendChild(cell);
+            })
+            row.appendChild(button)
+            table.appendChild(row)
+        })
+}
+
+
+function test() {
+    console.log(this.parentElement.dataset.id)
+    let index = this.parentElement.dataset.id
+}
 
 function Book(title,author,pages) {
     this.title = title;
