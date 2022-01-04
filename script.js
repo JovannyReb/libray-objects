@@ -18,7 +18,7 @@ function getInfo(objEvent) {
     console.log(pages);
 
     // Creating book object and adding it to the array 
-    addBookToLibrary(newBook(title,author,pages));
+    addBookToLibrary(BookFactory(title, author, pages));
 
     clearTable();
 
@@ -89,24 +89,20 @@ function deleteRow() {
     tableData();
 }
 
-function Book(title,author,pages) {
-    this.title = title;
-    this.author = author;
-    this.pages = pages;
-}
-
-function clearValues() {
-    title.value = ''
-    author.value = ''
-    pages.value = ''
+// Use of factory factory functions to create the books objects.
+// Instead of having another funcion and have to use the 'new' keyword
+function BookFactory(title,author,pages) {
+    return { title, author, pages}
 }
 
 function addBookToLibrary(obj) {
     myLibray.push(obj)
 }
 
-function newBook(title,author,pages) {
-    return new Book(title,author,pages)
+function clearValues() {
+    title.value = ''
+    author.value = ''
+    pages.value = ''
 }
 
 function librayInventory(libray) {
