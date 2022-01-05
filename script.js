@@ -105,14 +105,6 @@ function clearValues() {
     pages.value = ''
 }
 
-function librayInventory(libray) {
-    libray.forEach((book) => {
-        for (let property in book) {
-            console.log(`${property}: ${book[property]}`);
-        }
-    })
-}
-
 function clearTable() {
     table.innerHTML = ""
 }
